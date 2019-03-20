@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MicroEngine</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="author" content="Sergi Reyner"/>
+    <script type='text/javascript' src='the.js'></script>
+</head>
+
+<body>
+<!-- EXAMPLE APP START -->
+<p>This is a sample app. It contains some
+    <a href="parts.html">batteries included</a>
+    and should be
+    <a href="uninstall.html">cleaned up</a>
+    once you start developing your own app / lib.</p>
+<button id="amber-with">Hello from TagBrush >> with:</button>
+<button id="silk-tag">Hello from Silk >> TAG:</button>
+<button id="jquery-append">Hello from jQuery append</button>
+<ol id="output-list"></ol>
+<!-- EXAMPLE APP END -->
+<script type='text/javascript'>
+    var global = typeof global === "undefined" ? window : global || window;
+    new Promise(function (resolve, reject) {
+        require(['app'], resolve, reject);
+    }).then(function (amber) {
+        return amber.initialize({
+            //used for all new packages in IDE
+            'transport.defaultAmdNamespace': "amber-microengine"
+        }).then(function () {
+            require(["amber-ide-starter-dialog"], function (dlg) {
+                dlg.start();
+            });
+            amber.globals.Microengine._start();
+        });
+    });
+</script>
+</body>
+
+</html>

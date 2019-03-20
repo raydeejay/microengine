@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>MicroEngine</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Sergi Reyner" />
+  </head>
+
+  <body>
+  <p>Once you start developing your own app / lib, you should
+      remove all unnecessary parts left from the sample app.</p>
+  <ul style="width: 40ex">
+      <li>In <code>index.html</code>
+          <code>&lt;body&gt;</code> tag,
+          everything should be removed, except
+          the <code>&lt;script&gt;</code> tag
+          that initializes Amber and starts your app;
+          then you can add elements specific to your own app
+          to the page.</li>
+      <li>If you aren't going to use <code>Web</code>
+          package from <code>amber-contrib-web</code> module,
+          but want to retain the jQuery wrapper,
+          you should run <code>npm uninstall @ambers/contrib-web --save</code>
+          from your CLI.</li>
+      <li>If you aren't going to use the <code>Web</code>
+          package from the <code>amber-contrib-web</code> module,
+          nor the jQuery wrapper from <code>amber-contrib-jquery</code>,
+          you should run <code>npm uninstall @ambers/contrib-web @ambers/contrib-jquery --save</code>
+          from your CLI.</li>
+      <li>You cannot remove just the jQuery wrapper and retain the Web package,
+          as it depends on the jQuery wrapper.</li>
+      <li>If you aren't going to use <code>Silk</code>
+          package from <code>silk</code> module,
+          but want to retain <code>DOMite</code> DOM wrapper,
+          you should run <code>npm uninstall silk --save</code>
+          from your CLI.</li>
+      <li>If you aren't going to use the <code>Silk</code>
+          package from the <code>silk</code> module,
+          nor the DOM wrapper from <code>domite</code>,
+          you should run <code>npm uninstall silk domite --save</code>
+          from your CLI.</li>
+      <li>You cannot remove just the <code>DOMite</code> DOM wrapper
+          and retain the Silk package, as it depends on <code>domite</code>.</li>
+      <li>Your <code>Gruntfile.js</code> may contain references
+          to <code>Web</code> and/or <code>Silk</code> in <code>libraries</code>
+          field(s). Fix those fields to not contain non-existing libraries (optionally
+          add other needed ones, like <code>domite</code> or <code>Wrappers-JQuery</code>).</li>
+  </ul>
+  <p>If you are sure your app will only be run in modern browser / node.js
+      with Promise present, you can <code>npm uninstall es6-promise --save</code>,
+      then remove <code>es6-promise.amd.json</code> file.</p>
+  <p>As the last step, make sure the dependency tree is in a correct state
+      by recreating it: run <code>npm run reset</code> from your CLI.</p>
+  </body>
+
+</html>
