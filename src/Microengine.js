@@ -3484,10 +3484,12 @@ selector: "augmentPage",
 protocol: "starting",
 fn: function (){
 var self=this,$self=this;
+var url;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5,$6,$7;
+url="https://github.com/raydeejay/microengine";
 $1="#amber-with"._asJQuery();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["asJQuery"]=1;
@@ -3562,17 +3564,18 @@ $ctx2.sendIdx["enqueue:"]=1;
 //>>excludeEnd("ctx");
 }));
 $self._setup();
+$recv($recv($recv($recv($globals.Silk)._new())._DIV())._A_(["href".__minus_gt(url)])).__lt_lt(url);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"augmentPage",{},$globals.Microengine)});
+}, function($ctx1) {$ctx1.fill(self,"augmentPage",{url:url},$globals.Microengine)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "augmentPage\x0a\x09'#amber-with'asJQuery click: [ self session addCoin. self session addSlime ].\x0a\x09'#silk-tag' asJQuery click: [ self session addSpawner ].\x0a\x09'#jquery-append' asJQuery click: [\x0a\x09\x09\x09self session enqueue: (TimerAction for: 60 do: [\x0a\x09\x09\x09\x09self session enqueue: (MoveAction on: (Microengine instance session nodes at: #explorer) dx: 3) ]) ].\x0a\x09self setup",
-referencedClasses: ["TimerAction", "MoveAction", "Microengine"],
+source: "augmentPage\x0a\x09| url |\x0a\x09\x0a\x09url := 'https://github.com/raydeejay/microengine'.\x0a\x09'#amber-with'asJQuery click: [ self session addCoin. self session addSlime ].\x0a\x09'#silk-tag' asJQuery click: [ self session addSpawner ].\x0a\x09'#jquery-append' asJQuery click: [\x0a\x09\x09\x09self session enqueue: (TimerAction for: 60 do: [\x0a\x09\x09\x09\x09self session enqueue: (MoveAction on: (Microengine instance session nodes at: #explorer) dx: 3) ]) ].\x0a\x09self setup.\x0a\x09(Silk new DIV A: {#href -> url}) << url",
+referencedClasses: ["TimerAction", "MoveAction", "Microengine", "Silk"],
 //>>excludeEnd("ide");
-messageSends: ["click:", "asJQuery", "addCoin", "session", "addSlime", "addSpawner", "enqueue:", "for:do:", "on:dx:", "at:", "nodes", "instance", "setup"]
+messageSends: ["click:", "asJQuery", "addCoin", "session", "addSlime", "addSpawner", "enqueue:", "for:do:", "on:dx:", "at:", "nodes", "instance", "setup", "<<", "A:", "DIV", "new", "->"]
 }),
 $globals.Microengine);
 

@@ -906,12 +906,16 @@ setup
 !Microengine methodsFor: 'starting'!
 
 augmentPage
+	| url |
+	
+	url := 'https://github.com/raydeejay/microengine'.
 	'#amber-with'asJQuery click: [ self session addCoin. self session addSlime ].
 	'#silk-tag' asJQuery click: [ self session addSpawner ].
 	'#jquery-append' asJQuery click: [
 			self session enqueue: (TimerAction for: 60 do: [
 				self session enqueue: (MoveAction on: (Microengine instance session nodes at: #explorer) dx: 3) ]) ].
-	self setup
+	self setup.
+	(Silk new DIV A: {#href -> url}) << url
 ! !
 
 Microengine class slots: {#instance}!
