@@ -4018,10 +4018,9 @@ $1=$recv($self.sprite)._parent();
 if(($receiver = $1) == null || $receiver.a$nil){
 $1;
 } else {
-var parent;
-parent=$receiver;
-$recv(parent)._removeChild_($self.sprite);
-$recv(parent)._addChild_($self.sprite);
+var p;
+p=$receiver;
+$recv(p)._addChild_($recv(p)._removeChild_($self.sprite));
 }
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4030,10 +4029,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "bringToFront\x0a\x09sprite parent ifNotNil: [ :parent |\x0a\x09\x09 parent\x0a\x09\x09 \x09removeChild: sprite;\x0a\x09\x09 \x09addChild: sprite ]",
+source: "bringToFront\x0a\x09sprite parent ifNotNil: [ :p | p addChild: (p removeChild: sprite) ]",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["ifNotNil:", "parent", "removeChild:", "addChild:"]
+messageSends: ["ifNotNil:", "parent", "addChild:", "removeChild:"]
 }),
 $globals.Sprite);
 

@@ -1027,10 +1027,7 @@ y: anObject
 !Sprite methodsFor: 'action'!
 
 bringToFront
-	sprite parent ifNotNil: [ :parent |
-		 parent
-		 	removeChild: sprite;
-		 	addChild: sprite ]
+	sprite parent ifNotNil: [ :p | p addChild: (p removeChild: sprite) ]
 !
 
 stop
