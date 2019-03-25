@@ -4,3 +4,5 @@
 
 /config.js
 /the.js
+/Makefile
+/disable-dialog.patch
