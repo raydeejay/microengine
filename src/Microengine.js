@@ -567,14 +567,13 @@ var self=this,$self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$1,$3,$5,$4;
+var $2,$1,$5,$4,$3;
 $2=$recv(aSession)._health();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["health"]=1;
 //>>excludeEnd("ctx");
 $1=$recv($2).__plus($self._amount());
 $recv(aSession)._health_($1);
-$3=$recv($recv(aSession)._nodes())._at_("health");
 $5=$recv(aSession)._health();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["health"]=2;
@@ -583,7 +582,8 @@ $4="Health: ".__comma($5);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
 //>>excludeEnd("ctx");
-$recv($3)._text_($4);
+$3=$recv($globals.ModifyMessageAction)._key_text_("health",$4);
+$recv(aSession)._enqueue_($3);
 $recv(console)._log_("Health: ".__comma($recv(aSession)._health()));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -592,10 +592,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aSession"],
-source: "executeOn: aSession\x0a\x09aSession health: aSession health + self amount.\x0a\x09(aSession nodes at: #health) text: 'Health: ', aSession health.\x0a\x09console log: 'Health: ', aSession health",
-referencedClasses: [],
+source: "executeOn: aSession\x0a\x09aSession health: aSession health + self amount.\x0a\x09aSession enqueue: (ModifyMessageAction key: #health text: 'Health: ', aSession health).\x0a\x09console log: 'Health: ', aSession health",
+referencedClasses: ["ModifyMessageAction"],
 //>>excludeEnd("ide");
-messageSends: ["health:", "+", "health", "amount", "text:", "at:", "nodes", ",", "log:"]
+messageSends: ["health:", "+", "health", "amount", "enqueue:", "key:text:", ",", "log:"]
 }),
 $globals.HealthAction);
 
@@ -878,6 +878,134 @@ messageSends: ["key:text:x:y:", "getRandomKey", "session", "instance"]
 $globals.MessageAction.a$cls);
 
 
+$core.addClass("ModifyMessageAction", $globals.Action, ["key", "message"], "Microengine");
+$core.addMethod(
+$core.method({
+selector: "executeOn:",
+protocol: "executing",
+fn: function (aSession){
+var self=this,$self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv($recv($recv(aSession)._nodes())._at_($self.key))._text_($self.message);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"executeOn:",{aSession:aSession},$globals.ModifyMessageAction)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aSession"],
+source: "executeOn: aSession\x0a\x09(aSession nodes at: key) text: message",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["text:", "at:", "nodes"]
+}),
+$globals.ModifyMessageAction);
+
+$core.addMethod(
+$core.method({
+selector: "key",
+protocol: "accessing",
+fn: function (){
+var self=this,$self=this;
+return $self.key;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "key\x0a\x09^ key",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.ModifyMessageAction);
+
+$core.addMethod(
+$core.method({
+selector: "key:",
+protocol: "accessing",
+fn: function (anObject){
+var self=this,$self=this;
+$self.key=anObject;
+return self;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anObject"],
+source: "key: anObject\x0a\x09key := anObject",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.ModifyMessageAction);
+
+$core.addMethod(
+$core.method({
+selector: "message",
+protocol: "accessing",
+fn: function (){
+var self=this,$self=this;
+return $self.message;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "message\x0a\x09^ message",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.ModifyMessageAction);
+
+$core.addMethod(
+$core.method({
+selector: "message:",
+protocol: "accessing",
+fn: function (anObject){
+var self=this,$self=this;
+$self.message=anObject;
+return self;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anObject"],
+source: "message: anObject\x0a\x09message := anObject",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.ModifyMessageAction);
+
+
+$core.addMethod(
+$core.method({
+selector: "key:text:",
+protocol: "instance creation",
+fn: function (aSymbol,aString){
+var self=this,$self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$self._new();
+$recv($1)._key_(aSymbol);
+$recv($1)._message_(aString);
+return $recv($1)._yourself();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"key:text:",{aSymbol:aSymbol,aString:aString},$globals.ModifyMessageAction.a$cls)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aSymbol", "aString"],
+source: "key: aSymbol text: aString\x0a\x09^ self new\x0a\x09\x09key: aSymbol;\x0a\x09\x09message: aString;\x0a\x09\x09yourself",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["key:", "new", "message:", "yourself"]
+}),
+$globals.ModifyMessageAction.a$cls);
+
+
 $core.addClass("MoveAction", $globals.Action, ["sprite", "dx", "dy"], "Microengine");
 $core.addMethod(
 $core.method({
@@ -1145,14 +1273,13 @@ var self=this,$self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$1,$3,$5,$4;
+var $2,$1,$5,$4,$3;
 $2=$recv(aSession)._score();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["score"]=1;
 //>>excludeEnd("ctx");
 $1=$recv($2).__plus($self._amount());
 $recv(aSession)._score_($1);
-$3=$recv($recv(aSession)._nodes())._at_("score");
 $5=$recv(aSession)._score();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["score"]=2;
@@ -1161,7 +1288,8 @@ $4="Score: ".__comma($5);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
 //>>excludeEnd("ctx");
-$recv($3)._text_($4);
+$3=$recv($globals.ModifyMessageAction)._key_text_("score",$4);
+$recv(aSession)._enqueue_($3);
 $recv(console)._log_("Score: ".__comma($recv(aSession)._score()));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1170,10 +1298,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aSession"],
-source: "executeOn: aSession\x0a\x09aSession score: aSession score + self amount.\x0a\x09(aSession nodes at: #score) text: 'Score: ', aSession score.\x0a\x09console log: 'Score: ', aSession score",
-referencedClasses: [],
+source: "executeOn: aSession\x0a\x09aSession score: aSession score + self amount.\x0a\x09aSession enqueue: (ModifyMessageAction key: #score text: 'Score: ', aSession score).\x0a\x09console log: 'Score: ', aSession score",
+referencedClasses: ["ModifyMessageAction"],
 //>>excludeEnd("ide");
-messageSends: ["score:", "+", "score", "amount", "text:", "at:", "nodes", ",", "log:"]
+messageSends: ["score:", "+", "score", "amount", "enqueue:", "key:text:", ",", "log:"]
 }),
 $globals.ScoreAction);
 
@@ -1931,7 +2059,7 @@ var spr;
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
-spr=$recv($recv($recv($globals.Libs)._pixi())._Text())._newValue_value_("Health",$recv($globals.Microengine)._hudStyle());
+spr=$recv($recv($recv($globals.Libs)._pixi())._Text())._newValue_value_("Health: ".__comma($self.health),$recv($globals.Microengine)._hudStyle());
 $1=spr;
 $recv($1)._x_((8));
 $recv($1)._y_((40));
@@ -1943,10 +2071,10 @@ return $recv($globals.TextMessage)._on_(spr);
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "addHealth\x0a\x09| spr |\x0a\x09\x0a\x09spr := (Libs pixi Text newValue: 'Health' value: Microengine hudStyle).\x0a\x09spr x: 8; y: 40.\x0a\x09app app stage addChild: spr.\x0a\x09^ TextMessage on: spr",
+source: "addHealth\x0a\x09| spr |\x0a\x09\x0a\x09spr := (Libs pixi Text newValue: 'Health: ', health value: Microengine hudStyle).\x0a\x09spr x: 8; y: 40.\x0a\x09app app stage addChild: spr.\x0a\x09^ TextMessage on: spr",
 referencedClasses: ["Libs", "Microengine", "TextMessage"],
 //>>excludeEnd("ide");
-messageSends: ["newValue:value:", "Text", "pixi", "hudStyle", "x:", "y:", "addChild:", "stage", "app", "on:"]
+messageSends: ["newValue:value:", "Text", "pixi", ",", "hudStyle", "x:", "y:", "addChild:", "stage", "app", "on:"]
 }),
 $globals.GameSession);
 
@@ -1961,7 +2089,7 @@ var spr;
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
-spr=$recv($recv($recv($globals.Libs)._pixi())._Text())._newValue_value_("Score",$recv($globals.Microengine)._hudStyle());
+spr=$recv($recv($recv($globals.Libs)._pixi())._Text())._newValue_value_("Score: ".__comma($self.score),$recv($globals.Microengine)._hudStyle());
 $1=spr;
 $recv($1)._x_((8));
 $recv($1)._y_((8));
@@ -1973,10 +2101,10 @@ return $recv($globals.TextMessage)._on_(spr);
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "addScore\x0a\x09| spr |\x0a\x09\x0a\x09spr := (Libs pixi Text newValue: 'Score' value: Microengine hudStyle).\x0a\x09spr x: 8; y: 8.\x0a\x09app app stage addChild: spr.\x0a\x09^ TextMessage on: spr",
+source: "addScore\x0a\x09| spr |\x0a\x09\x0a\x09spr := (Libs pixi Text newValue: 'Score: ', score value: Microengine hudStyle).\x0a\x09spr x: 8; y: 8.\x0a\x09app app stage addChild: spr.\x0a\x09^ TextMessage on: spr",
 referencedClasses: ["Libs", "Microengine", "TextMessage"],
 //>>excludeEnd("ide");
-messageSends: ["newValue:value:", "Text", "pixi", "hudStyle", "x:", "y:", "addChild:", "stage", "app", "on:"]
+messageSends: ["newValue:value:", "Text", "pixi", ",", "hudStyle", "x:", "y:", "addChild:", "stage", "app", "on:"]
 }),
 $globals.GameSession);
 

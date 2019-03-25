@@ -167,7 +167,7 @@ amount: anObject
 
 executeOn: aSession
 	aSession health: aSession health + self amount.
-	(aSession nodes at: #health) text: 'Health: ', aSession health.
+	aSession enqueue: (ModifyMessageAction key: #health text: 'Health: ', aSession health).
 	console log: 'Health: ', aSession health
 ! !
 
@@ -248,6 +248,43 @@ text: aString x: anX y: aY
 	^ self key: Microengine instance session getRandomKey text: aString x: anX y: aY
 ! !
 
+Action subclass: #ModifyMessageAction
+	slots: {#key. #message}
+	package: 'Microengine'!
+
+!ModifyMessageAction methodsFor: 'accessing'!
+
+key
+	^ key
+!
+
+key: anObject
+	key := anObject
+!
+
+message
+	^ message
+!
+
+message: anObject
+	message := anObject
+! !
+
+!ModifyMessageAction methodsFor: 'executing'!
+
+executeOn: aSession
+	(aSession nodes at: key) text: message
+! !
+
+!ModifyMessageAction class methodsFor: 'instance creation'!
+
+key: aSymbol text: aString
+	^ self new
+		key: aSymbol;
+		message: aString;
+		yourself
+! !
+
 Action subclass: #MoveAction
 	slots: {#sprite. #dx. #dy}
 	package: 'Microengine'!
@@ -326,7 +363,7 @@ amount: anObject
 
 executeOn: aSession
 	aSession score: aSession score + self amount.
-	(aSession nodes at: #score) text: 'Score: ', aSession score.
+	aSession enqueue: (ModifyMessageAction key: #score text: 'Score: ', aSession score).
 	console log: 'Score: ', aSession score
 ! !
 
@@ -641,7 +678,7 @@ addExplorer
 addHealth
 	| spr |
 	
-	spr := (Libs pixi Text newValue: 'Health' value: Microengine hudStyle).
+	spr := (Libs pixi Text newValue: 'Health: ', health value: Microengine hudStyle).
 	spr x: 8; y: 40.
 	app app stage addChild: spr.
 	^ TextMessage on: spr
@@ -650,7 +687,7 @@ addHealth
 addScore
 	| spr |
 	
-	spr := (Libs pixi Text newValue: 'Score' value: Microengine hudStyle).
+	spr := (Libs pixi Text newValue: 'Score: ', score value: Microengine hudStyle).
 	spr x: 8; y: 8.
 	app app stage addChild: spr.
 	^ TextMessage on: spr
